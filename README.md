@@ -1,3 +1,5 @@
+[![Check labs](https://github.com/desmigor/CG-Game-Dev-Course/actions/workflows/check.yml/badge.svg)](https://github.com/desmigor/CG-Game-Dev-Course/actions/workflows/check.yml)
+
 # Computer graphics in Game development course
 
 This repo contains a template for Computer graphics in Game development labs (fall 2022)
