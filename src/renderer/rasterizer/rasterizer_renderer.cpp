@@ -18,7 +18,7 @@ void cg::renderer::rasterization_renderer::init()
 	// TODO Lab: 1.06 Add depth buffer in `cg::renderer::rasterization_renderer`
 }
 void cg::renderer::rasterization_renderer::render()
-{f
+{
 	auto start = std::chrono::high_resolution_clock::now();
 	rasterizer->clear_render_target({21,14,112});
 
