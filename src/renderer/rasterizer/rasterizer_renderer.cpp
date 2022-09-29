@@ -37,6 +37,17 @@ void cg::renderer::rasterization_renderer::render()
 	auto start = std::chrono::high_resolution_clock::now();
 	rasterizer->clear_render_target({21,14,112});
 
+	float4x4 matrix = mul(
+			camera->get_projection_matrix(),
+			camera->get_view_matrix(),
+			model->get_world_matrix()
+			);
+
+	rasterizer->vertex_shader = [&](float4 vertex, cg::vertex vertex_data){
+		auto processed = mul(matrix, vertex);
+		return std::make_pair(processed, vertex_data);
+	};
+
 	for (size_t shape_id = 0; shape_id < model->get_index_buffers().size();
 		 shape_id++)
 	{
