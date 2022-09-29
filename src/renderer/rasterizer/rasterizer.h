@@ -170,7 +170,6 @@ namespace cg::renderer
 					}
 				}
 			}
-
 		}
 	}
 
