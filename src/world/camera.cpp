@@ -15,7 +15,7 @@ cg::world::camera::camera() : theta(0.f), phi(0.f), height(1080.f), width(1920.f
 {
 }
 
-cg::world::camera::~camera() {}f
+cg::world::camera::~camera() {}
 
 void cg::world::camera::set_position(float3 in_position)
 {
