@@ -99,7 +99,6 @@ namespace cg::renderer
 		index_buffer = in_index_buffer;
 	}
 
-
 	template<typename VB, typename RT>
 	inline void rasterizer<VB, RT>::draw(size_t num_vertexes, size_t vertex_offset)
 	{
