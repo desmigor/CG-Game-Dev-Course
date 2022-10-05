@@ -103,9 +103,9 @@ namespace cg
 			unsigned_color out{};
 			out.r = std::clamp(static_cast<int>(255.f * color.r),
 							   0, 255);
-			out.g = std::clamp(static_cast<int>(255.f * color.r),
+			out.g = std::clamp(static_cast<int>(255.f * color.g),
 							   0, 255);
-			out.b = std::clamp(static_cast<int>(255.f * color.r),
+			out.b = std::clamp(static_cast<int>(255.f * color.b),
 							   0, 255);
 			return out;
 		};
