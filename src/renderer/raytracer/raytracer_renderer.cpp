@@ -75,8 +75,15 @@ void cg::renderer::ray_tracing_renderer::render()
 		{
 			cg::renderer::ray to_light(position,
 									   light.position - position);
-			result_color += triangle.diffuse * light.color *
-							std::max(dot(normal, to_light.direction), 0.f);
+			auto shadow_payload = shadow_raytracer->trace_ray(
+					to_light, 1,
+					length(light.position - position));
+			if (shadow_payload.t < 0.f)
+			{
+				result_color += triangle.diffuse *
+								light.color *
+								std::max(dot(normal, to_light.direction), 0.f);
+			}
 		}
 		payload.color = cg::color::from_float3(result_color);
 		return payload;
