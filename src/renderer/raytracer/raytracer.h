@@ -231,15 +231,20 @@ namespace cg::renderer
 		closest_hit_payload.t = max_t;
 		const triangle<VB>* closest_triangle = nullptr;
 
-		for (auto& triangle: triangles)
+		for (auto& aabb: acceleration_structures)
 		{
-			payload payload = intersection_shader(triangle, ray);
-			if (payload.t > min_t && payload.t < closest_hit_payload.t)
+			if (!aabb.aabb_test(ray))
+				continue ;
+			for (auto& triangle: aabb.get_triangles())
 			{
-				closest_hit_payload = payload;
-				closest_triangle = &triangle;
-				if (any_hit_shader)
-					return any_hit_shader(ray, payload, triangle);
+				payload payload = intersection_shader(triangle, ray);
+				if (payload.t > min_t && payload.t < closest_hit_payload.t)
+				{
+					closest_hit_payload = payload;
+					closest_triangle = &triangle;
+					if (any_hit_shader)
+						return any_hit_shader(ray, payload, triangle);
+				}
 			}
 		}
 
@@ -250,7 +255,6 @@ namespace cg::renderer
 										  *closest_triangle, depth);
 		}
 
-		// TODO Lab: 2.05 Adjust `trace_ray` method of `raytracer` class to traverse the acceleration structure
 		return miss_shader(ray);
 	}
 
@@ -319,7 +323,7 @@ namespace cg::renderer
 		float3 inv_ray_direction = float3(1.f) / ray.direction;
 		float3 t0 = (aabb_max - ray.position) * inv_ray_direction;
 		float3 t1 = (aabb_min - ray.position) * inv_ray_direction;
-		float tmax = max(t0, t1);
+		float3 tmax = max(t0, t1);
 		float3 tmin = min(t0, t1);
 		return maxelem(tmin) <= maxelem(tmax);
 	}
