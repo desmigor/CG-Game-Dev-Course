@@ -311,7 +311,6 @@ namespace cg::renderer
 			index /= base_y;
 			fraction *= inv_base;
 		}
-
 	}
 
 
