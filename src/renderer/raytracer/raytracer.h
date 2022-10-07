@@ -68,7 +68,7 @@ namespace cg::renderer
 		ambient = {vertex_a.ambient_r, vertex_a.ambient_g,
 				   vertex_a.ambient_b};
 		diffuse = {vertex_a.diffuse_r, vertex_a.diffuse_g,
-				   vertex_a.diffuset_b};
+				   vertex_a.diffuse_b};
 		emissive = {vertex_a.emissive_r, vertex_a.emissive_g,
 				   vertex_a.emissive_b};
 	}
