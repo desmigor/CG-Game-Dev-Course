@@ -58,7 +58,7 @@ ComPtr<IDXGIFactory4> cg::renderer::dx12_renderer::get_dxgi_factory()
 	UINT dxgi_factory_flags = 0;
 #ifdef  _DEBUG
 	ComPtr<ID3D12Debug> debug_controller;
-	if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_controller))));
+	if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debug_controller))))
 	{
 			debug_controller->EnableDebugLayer();
 			dxgi_factory_flags |= DXGI_CREATE_FACTORY_DEBUG;
@@ -86,12 +86,15 @@ void cg::renderer::dx12_renderer::initialize_device(ComPtr<IDXGIFactory4>& dxgi_
 	THROW_IF_FAILED(D3D12CreateDevice(hardware_adapter.Get(),
 									  D3D_FEATURE_LEVEL_11_0,
 									  IID_PPV_ARGS(&device)));
-									  IID_PPV_ARGS(&device)));
 }
 
 void cg::renderer::dx12_renderer::create_direct_command_queue()
 {
-	// TODO Lab: 3.02 Create a command queue
+	D3D12_COMMAND_QUEUE_DESC queue_desc{};
+	queue_desc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
+	queue_desc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
+	THROW_IF_FAILED(
+			device->CreateCommandQueue(&queue_desc, IID_PPV_ARGS(&command_queue)));
 }
 
 void cg::renderer::dx12_renderer::create_swap_chain(ComPtr<IDXGIFactory4>& dxgi_factory)
