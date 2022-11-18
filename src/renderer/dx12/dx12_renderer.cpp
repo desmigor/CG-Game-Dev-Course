@@ -277,7 +277,9 @@ void cg::renderer::dx12_renderer::load_assets()
 						);
 
 	vertex_buffers.resize(model->get_vertex_buffers().size());
+	vertex_buffer_views.resize(model->get_vertex_buffers().size());
 	index_buffers.resize(model->get_index_buffers().size());
+	index_buffer_views.resize(model->get_index_buffers().size());
 
 	for (size_t i=0; i< model->get_index_buffers().size(); i++)
 	{
@@ -295,6 +297,9 @@ void cg::renderer::dx12_renderer::load_assets()
 		copy_data(vertex_buffer_data->get_data(),
 				  vertex_buffer_size,
 				  vertex_buffers[i]);
+		vertex_buffer_views[i] = create_vertex_buffer_view(
+				vertex_buffers[i],
+				vertex_buffer_size);
 
 		// Index buffer
 		auto index_buffer_data = model->get_index_buffers()[i];
