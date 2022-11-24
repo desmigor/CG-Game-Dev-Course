@@ -190,7 +190,6 @@ void cg::renderer::dx12_renderer::create_command_list()
 			IID_PPV_ARGS(&command_list)));
 }
 
-
 void cg::renderer::dx12_renderer::load_pipeline()
 {
 	ComPtr<IDXGIFactory4> dxgi_factory = get_dxgi_factory();
