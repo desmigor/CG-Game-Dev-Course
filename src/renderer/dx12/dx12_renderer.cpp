@@ -491,6 +491,8 @@ void cg::renderer::dx12_renderer::load_assets()
 
 	create_constant_buffer_view(constant_buffer, cbv_srv_heap.get_cpu_descriptor_handle(0));
 
+	THROW_IF_FAILED(command_list->Close());
+
 	THROW_IF_FAILED(device->CreateFence(
 			0,
 			D3D12_FENCE_FLAG_NONE,
@@ -523,6 +525,7 @@ void cg::renderer::dx12_renderer::populate_command_list()
 	command_list->SetGraphicsRootDescriptorTable(0, cbv_srv_heap.get_gpu_descriptor_handle(0));
 	command_list->RSSetViewports(1, &view_port);
 	command_list->RSSetScissorRects(1, &scissor_rect);
+	command_list->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	D3D12_RESOURCE_BARRIER begin_barriers[] = {
 			CD3DX12_RESOURCE_BARRIER::Transition(
